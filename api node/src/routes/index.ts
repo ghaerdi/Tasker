@@ -1,12 +1,13 @@
-const express = require("express");
-const router = express.Router();
-const passport = require("passport");
-require("../controllers/passport");
-const { register, login, refreshTokens, logout } = require("../controllers/userHandler");
-const { getAllTasks, getTask, createTask, editTask, removeTask } = require("../controllers/taskHandler");
+import { Request, Response, Router }from "express";
+import { register, login, refreshTokens, logout } from "../controllers/userHandler";
+import { getAllTasks, getTask, createTask, editTask, removeTask } from "../controllers/taskHandler";
+import passport from "passport";
+import "../controllers/passport";
+
+const router = Router();
 
 router.route("/")
-  .get((req, res) => res.json("Welcome to Tasker"));
+  .get((_req: Request, res: Response) => res.json("Welcome to Tasker"));
 
 // USER
 router.route("/register")
@@ -33,4 +34,4 @@ router.route("/task/:id")
   .put(passport.authenticate("jwt", { session: false }), editTask)
   .delete(passport.authenticate("jwt", { session: false }), removeTask);
 
-module.exports = router;
+export default router;
