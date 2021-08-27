@@ -1,9 +1,15 @@
+console.clear();
+
 import app from "./app";
-// import "./database";
+import dotenv from "dotenv";
+
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
+
+import "./database";
 
 const port = process.env.PORT || 8080;
-
-console.clear();
 
 app.listen(port);
 console.log(`server on port ${port}`);
